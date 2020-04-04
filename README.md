@@ -1,4 +1,4 @@
-# Udagram Image Filtering Microservice
+# Udagram Microservices Project
 # Setting Udagram Microservice Dev Environment on AWS EC2
 ### Task-01 Installing GIT on AWS EC2
 Commands :
