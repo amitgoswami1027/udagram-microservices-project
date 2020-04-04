@@ -1,6 +1,6 @@
 # Udagram Image Filtering Microservice
 # Setting Udagram Microservice Dev Environment on AWS EC2
-### Installing GIT on AWS EC2
+### Task-01 Installing GIT on AWS EC2
 Commands :
 1. Perform a quick update on your instance:
    sudo yum update -y
@@ -9,7 +9,7 @@ Commands :
 3. #Check git version
    git version
 
-### Install node version manager (nvm) by typing the following at the command line.
+### Task-02 Install node version manager (nvm) by typing the following at the command line.
 1. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 2. Activate nvm by typing the following at the command line.
    . ~/.nvm/nvm.sh 
@@ -19,19 +19,32 @@ Commands :
 4. Test that Node.js is installed and running correctly by typing the following at the command line.
    node -e "console.log('Running Node.js ' + process.version)"
 
-### Install the Ionic CLI
+### Task-03 Install the Ionic CLI
 1.  npm install -g @ionic/cli
 
-### install python3 on AWS
+### Task-04 install python3 on AWS
 1. sudo yum install python3
 
-### Check installations
+### Task-05 Check installations
 1. node --version
 2. npm --version
 3. ionic --version
 
-### GIT Clone Repo
+### Task-06 GIT Clone Repo
 Current repo
+
+### Task-07 Command to build and run project
+1. npm install
+2. npm install bcrypt
+3. source ~/.bash_profile
+4. npm run dev
+
+### Task-08 - Problem connecting to postgress database on AWS from EC2 instance
+1. Check the username/password.
+2. Security Groups while creating RDS -Postgress, allocate default security group which does not have permission for inbound and 
+   outbound traffic. Need to update the same.
+3. 
+
 
 # Udagram Image Filtering Microservice
 
