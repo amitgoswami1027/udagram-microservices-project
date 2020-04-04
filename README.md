@@ -1,4 +1,39 @@
 # Udagram Image Filtering Microservice
+# Setting Udagram Microservice Dev Environment on AWS EC2
+### Installing GIT on AWS EC2
+Commands :
+1. Perform a quick update on your instance:
+   sudo yum update -y
+2. #Install git in your EC2 instance
+   sudo yum install git -y 
+3. #Check git version
+   git version
+
+### Install node version manager (nvm) by typing the following at the command line.
+1. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+2. Activate nvm by typing the following at the command line.
+   . ~/.nvm/nvm.sh 
+3. Use nvm to install the latest version of Node.js by typing the following at the command line. Installing Node.js also installs the  
+   Node Package Manager (npm) so you can install additional modules as needed.
+   nvm install node
+4. Test that Node.js is installed and running correctly by typing the following at the command line.
+   node -e "console.log('Running Node.js ' + process.version)"
+
+### Install the Ionic CLI
+1.  npm install -g @ionic/cli
+
+### install python3 on AWS
+1. sudo yum install python3
+
+### Check installations
+1. node --version
+2. npm --version
+3. ionic --version
+
+### GIT Clone Repo
+Current repo
+
+# Udagram Image Filtering Microservice
 
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
 
