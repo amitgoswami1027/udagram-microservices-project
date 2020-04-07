@@ -48,21 +48,21 @@ Current repo
 1. Create EC2 with Amazon Linux AMI (Linux version should be > 2.2.14)
 2. Login to your EC2 with PuTTY
 3. Do an update of Amzon Linux
-   sudo yum update
+   "sudo yum update"
 4. Now for installing docker run below command:
-   sudo yum install -y docker
+   "sudo yum install -y docker"
 5. Give permission
-   sudo usermod -a -G docker ec2-user
+   "sudo usermod -a -G docker ec2-user"
 6. Start Docker Service
-   sudo service docker start
+   "sudo service docker start"
 7. Run below command to get docker service up automatically after reboot:
-   sudo chkconfig docker on
+   "sudo chkconfig docker on"
 8. Optionally, create a new user for Docker management and add him to Docker (default) group
-   useradd dockeradmin
-   passwd dockeradmin
-   usermod -aG docker dockeradmin
+   "useradd dockeradmin"
+   "passwd dockeradmin"
+   "usermod -aG docker dockeradmin"
 9. Once you have Docker installed, open a terminal and run:
-   docker run alpine echo hello world
+   "docker run alpine echo hello world"
 10. Congratulations! You are now running Docker!
 
 ### Task-10 Converting the monolithic application to microservices:
