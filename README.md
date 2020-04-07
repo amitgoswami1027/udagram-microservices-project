@@ -43,7 +43,10 @@ Current repo
 1. Check the username/password.
 2. Security Groups while creating RDS -Postgress, allocate default security group which does not have permission for inbound and 
    outbound traffic. Need to update the same.
-3. 
+
+### Installing Dockers on AWS EC2 Linux instance
+1. which curl
+2. 
 
 
 # Udagram Image Filtering Microservice
