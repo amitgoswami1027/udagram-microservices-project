@@ -115,6 +115,15 @@ provide defaults for an executing container
 if the defaults do not include an executable, you must specify an ENTRYPOINT
 NOTE: there can be only one CMD instruction in a Dockerfile
 
+# KUBERNETES( K8s)
+Kubernetes (K8s) is an Apache 2.0-licensed open source Container Orchestration tool for effectively managing containerized applications.
+Kubernetes can automate the deployments, maintaining a logical group of containers, and helps to scale the application services. Google started it, but many other companies like Docker, Red Hat, and VMware contributed to it. In 2016, Google transferred the IP rights to Cloud Native Computing Foundation. 
+
+Why do we need Kubernetes?
+https://video.udacity-data.com/topher/2020/March/5e5de12d_google-docs-drawing-images-6/google-docs-drawing-images-6.png
+
+
+
 
 # Udagram Image Filtering Microservice
 
