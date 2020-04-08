@@ -1,4 +1,4 @@
-# Udagram Microservices Project
+# Udagram Microservices Project 
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
 
 The project is split into three parts:
@@ -58,21 +58,21 @@ Current repo
 1. Create EC2 with Amazon Linux AMI (Linux version should be > 2.2.14)
 2. Login to your EC2 with PuTTY
 3. Do an update of Amzon Linux
-   "sudo yum update"
+   *"sudo yum update"
 4. Now for installing docker run below command:
-   "sudo yum install -y docker"
+   *"sudo yum install -y docker"
 5. Give permission
-   "sudo usermod -a -G docker ec2-user"
+   *"sudo usermod -a -G docker ec2-user"
 6. Start Docker Service
-   "sudo service docker start"
+   *"sudo service docker start"
 7. Run below command to get docker service up automatically after reboot:
-   "sudo chkconfig docker on"
+   *"sudo chkconfig docker on"
 8. Optionally, create a new user for Docker management and add him to Docker (default) group
-   "useradd dockeradmin"
-   "passwd dockeradmin"
-   "usermod -aG docker dockeradmin"
+   *"useradd dockeradmin"
+   *"passwd dockeradmin"
+   *"usermod -aG docker dockeradmin"
 9. Once you have Docker installed, open a terminal and run:
-   "docker run alpine echo hello world"
+   *"docker run alpine echo hello world"
 10. Congratulations! You are now running Docker!
 
 ### Task-10 Converting the monolithic application to microservices:
@@ -80,19 +80,19 @@ Current repo
    https://github.com/udacity/nd9990-c3-microservices-v1
 2. Create your Dockerfile
 3. Build the Image for the "user" service
-   docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-user .
+   *docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-user .
 4. Build the image for the "feed" service
-   docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-feed . 
+   *docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-feed . 
 5. Build the image for the "frontend" service
-   docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
+   *docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
 6. Optional Step : If you face any errors, please need to update the Angular dependencies. Try to update them before building the image 
    as follows:
-   sudo npm install -g @angular/cli@latest
-   sudo ng update --all --force
-   docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
+   *sudo npm install -g @angular/cli@latest
+   *sudo ng update --all --force
+   *docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
 7. If you want to remove any image, use the following commands:
-   docker image rm -f <image_name/ID>
-   docker image prune
+   *docker image rm -f <image_name/ID>
+   *docker image prune
 
 ### Dockerfile
 a text file without any extension that contains all the commands to be executed to generate an image.
@@ -119,9 +119,37 @@ NOTE: there can be only one CMD instruction in a Dockerfile
 Kubernetes (K8s) is an Apache 2.0-licensed open source Container Orchestration tool for effectively managing containerized applications.
 Kubernetes can automate the deployments, maintaining a logical group of containers, and helps to scale the application services. Google started it, but many other companies like Docker, Red Hat, and VMware contributed to it. In 2016, Google transferred the IP rights to Cloud Native Computing Foundation. 
 
-Why do we need Kubernetes?
-https://video.udacity-data.com/topher/2020/March/5e5de12d_google-docs-drawing-images-6/google-docs-drawing-images-6.png
+## Why do we need Kubernetes?
+![](images/kube01.png)
 
+The above image shows the containerized applications have the advantage of being lightweight and more comfortable to manage, as compared to Virtual Machine (VM) based deployment.  Kubernetes can help in managing containerized application in the following ways:
+*Manage Containers - Self-healing such as auto-restart of a backup/replica container in case of a failure, automate the rollouts and rollbacks, configuration management of containers
+*Autoscale Workloads and Load balancing - Distributing a load of network traffic to suitable container/node
+*Optimal Resource Utilization - Each container has its own resource (CPU and memory) requirements. Kubernetes fits a container to the 
+ most suitable Node so that the resources of the Node are utilized effectively.
+*Service Discovery - Provide native methods for service discovery
+*Storage orchestration - Automatically mounting the volumes to containers
+*Others - Fire off jobs and scheduled cronjobs, quickly integrate and support 3rd party apps, and manage Stateless and Stateful applications
+
+## How does Kubernetes work?
+A Kubernetes deployment follows the “Master-Worker” model. We need to understand the key components before we look into the architecture diagram.
+
+*Node - A physical or virtual machine that runs multiple containers belonging to an application.
+*Cluster - A set of Master and Worker Nodes. When we deploy Kubernetes, we get a cluster, which each cluster has a minimum of one worker node. A master node is capable of managing multiple worker nodes.
+*Master Node - A node that decides the pod scheduling, and pod replication. The main components of a master node are - “kube-api-server”, “kube-scheduler”, “kube-controller”.
+*Worker Node - A node on which pods are scheduled and run.
+*Pod - A group of tightly coupled containers with shared storage, network, and a specification for how to run the containers. All the containers in a Pod are co-located and co-scheduled. The worker node(s) hosts the pods.
+
+![](images/kube02.png)
+
+In the above diagram, the following elements are involved:
+*kubelet - a “node agent” using which the worker node communicates with the master node. The kubelet runs on each Node.
+*kube-proxy - a “node agent” using which the worker node communicates with the external world. The kube-proxy also runs on each Node.
+*kube-apiserver - the frontend API that exposes the Kubernetes control plane.
+*etcd - a key-value store to stores the cluster state
+*kube-scheduler - a component that schedules the pods for running on the most suitable Node.
+*kube-controller-manager - a component that bundles and runs controller processes. These processes concern the nodes, replication,  
+ endpoints, and access management.
 
 
 
