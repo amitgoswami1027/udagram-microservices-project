@@ -1,4 +1,14 @@
 # Udagram Microservices Project
+Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
+
+The project is split into three parts:
+1. [The Simple Frontend](/udacity-c3-frontend)
+A basic Ionic client web application which consumes the RestAPI Backend. 
+2. [The RestAPI Feed Backend](/udacity-c3-restapi-feed), a Node-Express feed microservice.
+3. [The RestAPI User Backend](/udacity-c3-restapi-user), a Node-Express user microservice.
+
+Udagram microservices project, I have setup my development environment on AWS EC2 interface. Reason for doing so is I have windows home edition system and finding it challanging to do the setup for docker and kubernetes on it. Also it add a bit of additional complexity to project, but it help me to learn a lot about the AWS ecosystem and understanding about the different components. My Udagram frontend is deployed on S3 bucket and other rest apis on the EC2 interface. Please find the following steps for the project development instructions.
+
 ## Setting Udagram Microservice Dev Environment on AWS EC2
 ### Task-01 Installing GIT on AWS EC2
 Commands :
