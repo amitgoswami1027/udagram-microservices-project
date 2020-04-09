@@ -58,21 +58,21 @@ Current repo
 1. Create EC2 with Amazon Linux AMI (Linux version should be > 2.2.14)
 2. Login to your EC2 with PuTTY
 3. Do an update of Amzon Linux
-   *"sudo yum update"
+   * "sudo yum update"
 4. Now for installing docker run below command:
-   *"sudo yum install -y docker"
+   * "sudo yum install -y docker"
 5. Give permission
-   *"sudo usermod -a -G docker ec2-user"
+   * "sudo usermod -a -G docker ec2-user"
 6. Start Docker Service
-   *"sudo service docker start"
+   * "sudo service docker start"
 7. Run below command to get docker service up automatically after reboot:
-   *"sudo chkconfig docker on"
+   * "sudo chkconfig docker on"
 8. Optionally, create a new user for Docker management and add him to Docker (default) group
-   *"useradd dockeradmin"
-   *"passwd dockeradmin"
-   *"usermod -aG docker dockeradmin"
+   * "useradd dockeradmin"
+   * "passwd dockeradmin"
+   * "usermod -aG docker dockeradmin"
 9. Once you have Docker installed, open a terminal and run:
-   *"docker run alpine echo hello world"
+   * "docker run alpine echo hello world"
 10. Congratulations! You are now running Docker!
 
 ### Task-10 Converting the monolithic application to microservices:
@@ -80,19 +80,31 @@ Current repo
    https://github.com/udacity/nd9990-c3-microservices-v1
 2. Create your Dockerfile
 3. Build the Image for the "user" service
-   *docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-user .
+   * docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-user .
 4. Build the image for the "feed" service
-   *docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-feed . 
+   * docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-feed . 
 5. Build the image for the "frontend" service
-   *docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
+   * docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
 6. Optional Step : If you face any errors, please need to update the Angular dependencies. Try to update them before building the image 
    as follows:
-   *sudo npm install -g @angular/cli@latest
-   *sudo ng update --all --force
-   *docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
+   * sudo npm install -g @angular/cli@latest
+   * sudo ng update --all --force
+   * docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
 7. If you want to remove any image, use the following commands:
-   *docker image rm -f <image_name/ID>
-   *docker image prune
+   * docker image rm -f <image_name/ID>
+   * docker image prune
+
+### Important Commands
+1. Set Pythons path : /usr/bin/python3
+2. npm install node-pre-gyp -g
+3. npm config set python /usr/bin/python3
+4. node-gyp --python /usr/bin/python3
+5. sudo yum install /usr/bin/g++
+6. npm ci
+7. 
+
+### Dockerizing the services 
+### sudo docker run --rm --publish 8103:8103 -v $HOME/.aws:/root/.aws --env POSTGRESS_HOST=$POSTGRESS_HOST --env POSTGRESS_USERNAME=$POSTGRESS_USERNAME --env POSTGRESS_PASSWORD=$POSTGRESS_PASSWORD --env POSTGRESS_DB=$POSTGRESS_DB --env AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed4 amitgoswami1027/udacity-restapi-feed
 
 ### Dockerfile
 a text file without any extension that contains all the commands to be executed to generate an image.
@@ -151,7 +163,9 @@ In the above diagram, the following elements are involved:
 *kube-controller-manager - a component that bundles and runs controller processes. These processes concern the nodes, replication,  
  endpoints, and access management.
 
-
+### Kubeone installation
+1. Downloading a binary from GitHub Releases
+   
 
 # Udagram Image Filtering Microservice
 
