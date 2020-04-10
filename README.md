@@ -7,9 +7,9 @@ A basic Ionic client web application which consumes the RestAPI Backend.
 2. [The RestAPI Feed Backend](/udacity-c3-restapi-feed), a Node-Express feed microservice.
 3. [The RestAPI User Backend](/udacity-c3-restapi-user), a Node-Express user microservice.
 
-Udagram microservices project, I have setup my development environment on AWS EC2 interface. Reason for doing so is I have windows home edition system and finding it challanging to do the setup for docker and kubernetes on it. Also it add a bit of additional complexity to project, but it help me to learn a lot about the AWS ecosystem and understanding about the different components. My Udagram frontend is deployed on S3 bucket and other rest apis on the EC2 interface. Please find the following steps for the project development instructions.
+#### Udagram microservices project, I have setup my development environment on AWS EC2 interface. Reason for doing so is I have windows home edition system and finding it challanging to do the setup for docker and kubernetes on it. Also it add a bit of additional complexity to project, but it help me to learn a lot about the AWS ecosystem and understanding about the different components. My Udagram frontend is deployed on S3 bucket and other rest apis on the EC2 interface. Please find the following steps for the project development instructions.
 
-## Setting Udagram Microservice Dev Environment on AWS EC2
+## Setting up Udagram Microservice Dev Environment on AWS EC2
 ### Task-01 Installing GIT on AWS EC2
 Commands :
 1. Perform a quick update on your instance:
@@ -41,7 +41,7 @@ Commands :
 3. ionic --version
 
 ### Task-06 GIT Clone Repo
-Current repo
+Current repo [Clone the project repo]
 
 ### Task-07 Command to build and run project
 1. npm install
@@ -93,6 +93,11 @@ Current repo
 7. If you want to remove any image, use the following commands:
    * docker image rm -f <image_name/ID>
    * docker image prune
+8. ### Dockerizing the services (Commands)
+   sudo docker run --rm --publish 8103:8103 -v $HOME/.aws:/root/.aws --env POSTGRESS_HOST=$POSTGRESS_HOST --env  
+   POSTGRESS_USERNAME=$POSTGRESS_USERNAME --env POSTGRESS_PASSWORD=$POSTGRESS_PASSWORD --env POSTGRESS_DB=$POSTGRESS_DB --env    
+   AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed4 
+   amitgoswami1027/udacity-restapi-feed
 
 ### Important Commands
 1. Set Pythons path : /usr/bin/python3
@@ -130,31 +135,17 @@ Current repo
 13. Debugging Inside The Container
     docker exec -it feed bash
 14. Pushing the images to dockerhub
-    docker push yourdockerhubname/udacity-restapi-feed
-15. 
-### Dockerizing the services (Commands)
-### sudo docker run --rm --publish 8103:8103 -v $HOME/.aws:/root/.aws --env POSTGRESS_HOST=$POSTGRESS_HOST --env POSTGRESS_USERNAME=$POSTGRESS_USERNAME --env POSTGRESS_PASSWORD=$POSTGRESS_PASSWORD --env POSTGRESS_DB=$POSTGRESS_DB --env AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed4 amitgoswami1027/udacity-restapi-feed
+    docker push yourdockerhubname/udacity-restapi-feed 
 
 ### Dockerfile
 a text file without any extension that contains all the commands to be executed to generate an image.
-#### FROM
-a Dockerfile must begin with a FROM instruction . initializes a new build stage
-sets the base image for subsequent instructions
-#### RUN
-command to create and start containers using the current image
-commits the results so that the resulting committed image will be used for the next step in the Dockerfile.
-#### WORKDIR
-creates (if not exists) and set the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile.
-#### COPY
-copies new files or directories from <src> and adds them to the filesystem of the container at the path <dest>
-#### EXPOSE
-specify the network ports of the container at runtime
-specify the network protocol that the port listens (TCP is the default)
-NOTE: EXPOSE does not actually publish the port -- it functions more as a documentation tool
-#### CMD
-provide defaults for an executing container
-if the defaults do not include an executable, you must specify an ENTRYPOINT
-NOTE: there can be only one CMD instruction in a Dockerfile
+#### FROM (a Dockerfile must begin with a FROM instruction . initializes a new build stage sets the base image for subsequent instructions)
+#### RUN (command to create and start containers using the current image commits the results so that the resulting committed image will be used for the next step in the Dockerfile.)
+#### WORKDIR (creates (if not exists) and set the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile.)
+#### COPY(copies new files or directories from <src> and adds them to the filesystem of the container at the path <dest>)
+#### EXPOSE (specify the network ports of the container at runtime specify the network protocol that the port listens (TCP is the default) NOTE: EXPOSE does not actually publish the port -- it functions more as a documentation tool
+#### CMD (provide defaults for an executing container if the defaults do not include an executable, you must specify an ENTRYPOINT
+NOTE: there can be only one CMD instruction in a Dockerfile)
 
 # KUBERNETES( K8s)
 Kubernetes (K8s) is an Apache 2.0-licensed open source Container Orchestration tool for effectively managing containerized applications.
@@ -164,32 +155,32 @@ Kubernetes can automate the deployments, maintaining a logical group of containe
 ![](images/kube01.png)
 
 The above image shows the containerized applications have the advantage of being lightweight and more comfortable to manage, as compared to Virtual Machine (VM) based deployment.  Kubernetes can help in managing containerized application in the following ways:
-*Manage Containers - Self-healing such as auto-restart of a backup/replica container in case of a failure, automate the rollouts and rollbacks, configuration management of containers
-*Autoscale Workloads and Load balancing - Distributing a load of network traffic to suitable container/node
-*Optimal Resource Utilization - Each container has its own resource (CPU and memory) requirements. Kubernetes fits a container to the 
+* Manage Containers - Self-healing such as auto-restart of a backup/replica container in case of a failure, automate the rollouts and rollbacks, configuration management of containers
+* Autoscale Workloads and Load balancing - Distributing a load of network traffic to suitable container/node
+* Optimal Resource Utilization - Each container has its own resource (CPU and memory) requirements. Kubernetes fits a container to the 
  most suitable Node so that the resources of the Node are utilized effectively.
-*Service Discovery - Provide native methods for service discovery
-*Storage orchestration - Automatically mounting the volumes to containers
-*Others - Fire off jobs and scheduled cronjobs, quickly integrate and support 3rd party apps, and manage Stateless and Stateful applications
+* Service Discovery - Provide native methods for service discovery
+* Storage orchestration - Automatically mounting the volumes to containers
+* Others - Fire off jobs and scheduled cronjobs, quickly integrate and support 3rd party apps, and manage Stateless and Stateful applications
 
 ## How does Kubernetes work?
 A Kubernetes deployment follows the “Master-Worker” model. We need to understand the key components before we look into the architecture diagram.
 
-*Node - A physical or virtual machine that runs multiple containers belonging to an application.
-*Cluster - A set of Master and Worker Nodes. When we deploy Kubernetes, we get a cluster, which each cluster has a minimum of one worker node. A master node is capable of managing multiple worker nodes.
-*Master Node - A node that decides the pod scheduling, and pod replication. The main components of a master node are - “kube-api-server”, “kube-scheduler”, “kube-controller”.
-*Worker Node - A node on which pods are scheduled and run.
-*Pod - A group of tightly coupled containers with shared storage, network, and a specification for how to run the containers. All the containers in a Pod are co-located and co-scheduled. The worker node(s) hosts the pods.
+* Node - A physical or virtual machine that runs multiple containers belonging to an application.
+* Cluster - A set of Master and Worker Nodes. When we deploy Kubernetes, we get a cluster, which each cluster has a minimum of one worker node. A master node is capable of managing multiple worker nodes.
+* Master Node - A node that decides the pod scheduling, and pod replication. The main components of a master node are - “kube-api-server”, “kube-scheduler”, “kube-controller”.
+* Worker Node - A node on which pods are scheduled and run.
+* Pod - A group of tightly coupled containers with shared storage, network, and a specification for how to run the containers. All the containers in a Pod are co-located and co-scheduled. The worker node(s) hosts the pods.
 
 ![](images/kube02.png)
 
 In the above diagram, the following elements are involved:
-*kubelet - a “node agent” using which the worker node communicates with the master node. The kubelet runs on each Node.
-*kube-proxy - a “node agent” using which the worker node communicates with the external world. The kube-proxy also runs on each Node.
-*kube-apiserver - the frontend API that exposes the Kubernetes control plane.
-*etcd - a key-value store to stores the cluster state
-*kube-scheduler - a component that schedules the pods for running on the most suitable Node.
-*kube-controller-manager - a component that bundles and runs controller processes. These processes concern the nodes, replication,  
+* kubelet - a “node agent” using which the worker node communicates with the master node. The kubelet runs on each Node.
+* kube-proxy - a “node agent” using which the worker node communicates with the external world. The kube-proxy also runs on each Node.
+* kube-apiserver - the frontend API that exposes the Kubernetes control plane.
+* etcd - a key-value store to stores the cluster state
+* kube-scheduler - a component that schedules the pods for running on the most suitable Node.
+* kube-controller-manager - a component that bundles and runs controller processes. These processes concern the nodes, replication,  
  endpoints, and access management.
 
 ### Kubeone installation [https://github.com/kubermatic/kubeone]
@@ -206,6 +197,7 @@ In the above diagram, the following elements are involved:
    sudo mv kubeone_<version>_<operating_system>_amd64/kubeone /usr/local/bin
    Example : sudo mv kubeone_0.11.1_linux_amd64/kubeone /usr/local/bin
 4. Kubeone installation done
+
 ### Terraform Instalaltion
 5. Home Brew : [/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"]
    brew install terraform
@@ -214,7 +206,6 @@ In the above diagram, the following elements are involved:
 6. For compilers to find isl@0.18 you may need to set:
    export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib"
    export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/isl@0.18/include"
-
    For pkg-config to find isl@0.18 you may need to set:
    export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib/pkgconfig"
 7. Install Terraform (terraform Successfully Installed)
