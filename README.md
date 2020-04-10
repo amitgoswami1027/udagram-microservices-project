@@ -199,29 +199,47 @@ In the above diagram, the following elements are involved:
    curl -LO https://github.com/kubermatic/kubeone/releases/download/v<version>/kubeone_<version>_<operating_system>_amd64.zip
    Find the releases from : [https://github.com/kubermatic/kubeone/releases]
    Example: curl -LO https://github.com/kubermatic/kubeone/releases/download/v0.11.1/kubeone_0.11.1_linux_amd64.zip
-3. Extract the binary to the KubeOne directory. On Linux and macOS, you can use unzip.
+2. Extract the binary to the KubeOne directory. On Linux and macOS, you can use unzip.
    unzip kubeone_<version>_<operating_system>_amd64.zip -d kubeone_<version>_<operating_system>_amd64
    Example : unzip kubeone_0.11.1_linux_amd64.zip -d kubeone_0.11.1_linux_amd64
-4. Move the kubeone binary to your path, so you can easily invoke it from your terminal.
+3. Move the kubeone binary to your path, so you can easily invoke it from your terminal.
    sudo mv kubeone_<version>_<operating_system>_amd64/kubeone /usr/local/bin
    Example : sudo mv kubeone_0.11.1_linux_amd64/kubeone /usr/local/bin
-5. Kubeone installation done
+4. Kubeone installation done
 ### Terraform Instalaltion
-6. Home Brew : [/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"]
+5. Home Brew : [/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"]
    brew install terraform
    Set brew to PATH
    brew install gcc
-7. For compilers to find isl@0.18 you may need to set:
+6. For compilers to find isl@0.18 you may need to set:
    export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib"
    export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/isl@0.18/include"
 
    For pkg-config to find isl@0.18 you may need to set:
    export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib/pkgconfig"
-8. Install Terraform (terraform Successfully Installed)
+7. Install Terraform (terraform Successfully Installed)
    brew install terraform
    Go to kubeone_0.11.1_linux_amd64/examples/terraform/aws
    terraform init
-9. 
+9. AWS Credentials: 
+   export AWS_ACCESS_KEY_ID=
+   export AWS_SECRET_ACCESS_KEY=
+
+### Install kubectl on Linux [Done]
+1. Download the latest release with the command:
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+2. To download a specific version, replace the
+   curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
+3. For example, to download version v1.18.0 on Linux, type:
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
+4. Make the kubectl binary executable.
+   chmod +x ./kubectl
+5. Move the binary in to your PATH.
+   sudo mv ./kubectl /usr/local/bin/kubectl
+6. Test to ensure the version you installed is up-to-date:
+   kubectl version --client
+   
+
    https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md
    
 # Udagram Image Filtering Microservice
