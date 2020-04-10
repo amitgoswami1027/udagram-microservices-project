@@ -75,7 +75,7 @@ Current repo
    * "docker run alpine echo hello world"
 10. Congratulations! You are now running Docker!
 
-### Task-10 Converting the monolithic application to microservices:
+### Task-10 Converting the monolithic application to microservices: (Dockerizing the services)
 1. Create a project folder in your local computer and clone the following Git repository -
    https://github.com/udacity/nd9990-c3-microservices-v1
 2. Create your Dockerfile
@@ -101,9 +101,38 @@ Current repo
 4. node-gyp --python /usr/bin/python3
 5. sudo yum install /usr/bin/g++
 6. npm ci
-7. 
-
-### Dockerizing the services 
+7. Setting Environment variables for the microservices in ~/.bash_profile file
+   export POSTGRESS_USERNAME=myusername;
+   export POSTGRESS_PASSWORD=mypassword;
+   export POSTGRESS_DB=postgres;
+   export POSTGRESS_HOST=udagramdemo.abc4def.us-east-2.rds.amazonaws.com;
+   export AWS_REGION=us-east-2;
+   export AWS_PROFILE=default;
+   export AWS_BUCKET=udagramdemo;
+   export JWT_SECRET=helloworld;
+8. source ~/.bash_profile
+9. Run your Container (simplified version)
+   docker run --publish 8080:8080 --name feed <your_dockerhub_username_lowercase>/udacity-restapi-feed
+10. Run your Container (working version) - Dockerizing the services
+    docker run --rm --publish 8080:8080 -v $HOME/.aws:/root/.aws --env POSTGRESS_HOST=$POSTGRESS_HOST --env 
+    POSTGRESS_USERNAME=$POSTGRESS_USERNAME --env POSTGRESS_PASSWORD=$POSTGRESS_PASSWORD --env POSTGRESS_DB=$POSTGRESS_DB --env 
+    AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed 
+    <your_dockerhub_username_lowercase>/udacity-restapi-feed
+11. Verify the Running Container
+    curl http://localhost:8080/api/v0/feed
+    docker container ls
+    docker container kill <container_name>
+    docker container prune
+12. Check The Logs
+    docker logs feed
+    docker logs feed --follow
+    docker logs feed --tail 3
+13. Debugging Inside The Container
+    docker exec -it feed bash
+14. Pushing the images to dockerhub
+    docker push yourdockerhubname/udacity-restapi-feed
+15. 
+### Dockerizing the services (Commands)
 ### sudo docker run --rm --publish 8103:8103 -v $HOME/.aws:/root/.aws --env POSTGRESS_HOST=$POSTGRESS_HOST --env POSTGRESS_USERNAME=$POSTGRESS_USERNAME --env POSTGRESS_PASSWORD=$POSTGRESS_PASSWORD --env POSTGRESS_DB=$POSTGRESS_DB --env AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed4 amitgoswami1027/udacity-restapi-feed
 
 ### Dockerfile
@@ -163,10 +192,38 @@ In the above diagram, the following elements are involved:
 *kube-controller-manager - a component that bundles and runs controller processes. These processes concern the nodes, replication,  
  endpoints, and access management.
 
-### Kubeone installation
-1. Downloading a binary from GitHub Releases
-   
+### Kubeone installation [https://github.com/kubermatic/kubeone]
+1. It is recommended to use KubeOne for Linux users. kubeone is a CLI tool and a Go library for installing, managing, and upgrading 
+   Kubernetes High-Available (HA) clusters. It can be used on any cloud provider, on-prem or bare-metal cluster.
+### Downloading a binary from GitHub Releases
+   curl -LO https://github.com/kubermatic/kubeone/releases/download/v<version>/kubeone_<version>_<operating_system>_amd64.zip
+   Find the releases from : [https://github.com/kubermatic/kubeone/releases]
+   Example: curl -LO https://github.com/kubermatic/kubeone/releases/download/v0.11.1/kubeone_0.11.1_linux_amd64.zip
+3. Extract the binary to the KubeOne directory. On Linux and macOS, you can use unzip.
+   unzip kubeone_<version>_<operating_system>_amd64.zip -d kubeone_<version>_<operating_system>_amd64
+   Example : unzip kubeone_0.11.1_linux_amd64.zip -d kubeone_0.11.1_linux_amd64
+4. Move the kubeone binary to your path, so you can easily invoke it from your terminal.
+   sudo mv kubeone_<version>_<operating_system>_amd64/kubeone /usr/local/bin
+   Example : sudo mv kubeone_0.11.1_linux_amd64/kubeone /usr/local/bin
+5. Kubeone installation done
+### Terraform Instalaltion
+6. Home Brew : [/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"]
+   brew install terraform
+   Set brew to PATH
+   brew install gcc
+7. For compilers to find isl@0.18 you may need to set:
+   export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib"
+   export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/isl@0.18/include"
 
+   For pkg-config to find isl@0.18 you may need to set:
+   export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib/pkgconfig"
+8. Install Terraform (terraform Successfully Installed)
+   brew install terraform
+   Go to kubeone_0.11.1_linux_amd64/examples/terraform/aws
+   terraform init
+9. 
+   https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md
+   
 # Udagram Image Filtering Microservice
 
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
