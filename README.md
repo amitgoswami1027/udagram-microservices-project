@@ -1,4 +1,4 @@
-# Udagram Microservices Project
+# Udagram Microservices Project 
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
 
 The project is split into three parts:
@@ -58,41 +58,82 @@ Current repo
 1. Create EC2 with Amazon Linux AMI (Linux version should be > 2.2.14)
 2. Login to your EC2 with PuTTY
 3. Do an update of Amzon Linux
-   "sudo yum update"
+   * "sudo yum update"
 4. Now for installing docker run below command:
-   "sudo yum install -y docker"
+   * "sudo yum install -y docker"
 5. Give permission
-   "sudo usermod -a -G docker ec2-user"
+   * "sudo usermod -a -G docker ec2-user"
 6. Start Docker Service
-   "sudo service docker start"
+   * "sudo service docker start"
 7. Run below command to get docker service up automatically after reboot:
-   "sudo chkconfig docker on"
+   * "sudo chkconfig docker on"
 8. Optionally, create a new user for Docker management and add him to Docker (default) group
-   "useradd dockeradmin"
-   "passwd dockeradmin"
-   "usermod -aG docker dockeradmin"
+   * "useradd dockeradmin"
+   * "passwd dockeradmin"
+   * "usermod -aG docker dockeradmin"
 9. Once you have Docker installed, open a terminal and run:
-   "docker run alpine echo hello world"
+   * "docker run alpine echo hello world"
 10. Congratulations! You are now running Docker!
 
-### Task-10 Converting the monolithic application to microservices:
+### Task-10 Converting the monolithic application to microservices: (Dockerizing the services)
 1. Create a project folder in your local computer and clone the following Git repository -
    https://github.com/udacity/nd9990-c3-microservices-v1
 2. Create your Dockerfile
 3. Build the Image for the "user" service
-   docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-user .
+   * docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-user .
 4. Build the image for the "feed" service
-   docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-feed . 
+   * docker build -t <your_dockerhub_username_lowercase>/udacity-restapi-feed . 
 5. Build the image for the "frontend" service
-   docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
+   * docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
 6. Optional Step : If you face any errors, please need to update the Angular dependencies. Try to update them before building the image 
    as follows:
-   sudo npm install -g @angular/cli@latest
-   sudo ng update --all --force
-   docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
+   * sudo npm install -g @angular/cli@latest
+   * sudo ng update --all --force
+   * docker build -t <your_dockerhub_username_lowercase>/udacity-frontend . 
 7. If you want to remove any image, use the following commands:
-   docker image rm -f <image_name/ID>
-   docker image prune
+   * docker image rm -f <image_name/ID>
+   * docker image prune
+
+### Important Commands
+1. Set Pythons path : /usr/bin/python3
+2. npm install node-pre-gyp -g
+3. npm config set python /usr/bin/python3
+4. node-gyp --python /usr/bin/python3
+5. sudo yum install /usr/bin/g++
+6. npm ci
+7. Setting Environment variables for the microservices in ~/.bash_profile file
+   export POSTGRESS_USERNAME=myusername;
+   export POSTGRESS_PASSWORD=mypassword;
+   export POSTGRESS_DB=postgres;
+   export POSTGRESS_HOST=udagramdemo.abc4def.us-east-2.rds.amazonaws.com;
+   export AWS_REGION=us-east-2;
+   export AWS_PROFILE=default;
+   export AWS_BUCKET=udagramdemo;
+   export JWT_SECRET=helloworld;
+8. source ~/.bash_profile
+9. Run your Container (simplified version)
+   docker run --publish 8080:8080 --name feed <your_dockerhub_username_lowercase>/udacity-restapi-feed
+10. Run your Container (working version) - Dockerizing the services
+    docker run --rm --publish 8080:8080 -v $HOME/.aws:/root/.aws --env POSTGRESS_HOST=$POSTGRESS_HOST --env 
+    POSTGRESS_USERNAME=$POSTGRESS_USERNAME --env POSTGRESS_PASSWORD=$POSTGRESS_PASSWORD --env POSTGRESS_DB=$POSTGRESS_DB --env 
+    AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed 
+    <your_dockerhub_username_lowercase>/udacity-restapi-feed
+11. Verify the Running Container
+    curl http://localhost:8080/api/v0/feed
+    docker container ls
+    docker container kill <container_name>
+    docker container prune
+12. Check The Logs
+    docker logs feed
+    docker logs feed --follow
+    docker logs feed --tail 3
+13. Debugging Inside The Container
+    docker exec -it feed bash
+14. Pushing the images to dockerhub
+    docker push yourdockerhubname/udacity-restapi-feed
+15. 
+### Dockerizing the services (Commands)
+### sudo docker run --rm --publish 8103:8103 -v $HOME/.aws:/root/.aws --env POSTGRESS_HOST=$POSTGRESS_HOST --env POSTGRESS_USERNAME=$POSTGRESS_USERNAME --env POSTGRESS_PASSWORD=$POSTGRESS_PASSWORD --env POSTGRESS_DB=$POSTGRESS_DB --env AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed4 amitgoswami1027/udacity-restapi-feed
 
 ### Dockerfile
 a text file without any extension that contains all the commands to be executed to generate an image.
@@ -119,12 +160,88 @@ NOTE: there can be only one CMD instruction in a Dockerfile
 Kubernetes (K8s) is an Apache 2.0-licensed open source Container Orchestration tool for effectively managing containerized applications.
 Kubernetes can automate the deployments, maintaining a logical group of containers, and helps to scale the application services. Google started it, but many other companies like Docker, Red Hat, and VMware contributed to it. In 2016, Google transferred the IP rights to Cloud Native Computing Foundation. 
 
-Why do we need Kubernetes?
-https://video.udacity-data.com/topher/2020/March/5e5de12d_google-docs-drawing-images-6/google-docs-drawing-images-6.png
+## Why do we need Kubernetes?
+![](images/kube01.png)
 
+The above image shows the containerized applications have the advantage of being lightweight and more comfortable to manage, as compared to Virtual Machine (VM) based deployment.  Kubernetes can help in managing containerized application in the following ways:
+*Manage Containers - Self-healing such as auto-restart of a backup/replica container in case of a failure, automate the rollouts and rollbacks, configuration management of containers
+*Autoscale Workloads and Load balancing - Distributing a load of network traffic to suitable container/node
+*Optimal Resource Utilization - Each container has its own resource (CPU and memory) requirements. Kubernetes fits a container to the 
+ most suitable Node so that the resources of the Node are utilized effectively.
+*Service Discovery - Provide native methods for service discovery
+*Storage orchestration - Automatically mounting the volumes to containers
+*Others - Fire off jobs and scheduled cronjobs, quickly integrate and support 3rd party apps, and manage Stateless and Stateful applications
 
+## How does Kubernetes work?
+A Kubernetes deployment follows the “Master-Worker” model. We need to understand the key components before we look into the architecture diagram.
 
+*Node - A physical or virtual machine that runs multiple containers belonging to an application.
+*Cluster - A set of Master and Worker Nodes. When we deploy Kubernetes, we get a cluster, which each cluster has a minimum of one worker node. A master node is capable of managing multiple worker nodes.
+*Master Node - A node that decides the pod scheduling, and pod replication. The main components of a master node are - “kube-api-server”, “kube-scheduler”, “kube-controller”.
+*Worker Node - A node on which pods are scheduled and run.
+*Pod - A group of tightly coupled containers with shared storage, network, and a specification for how to run the containers. All the containers in a Pod are co-located and co-scheduled. The worker node(s) hosts the pods.
 
+![](images/kube02.png)
+
+In the above diagram, the following elements are involved:
+*kubelet - a “node agent” using which the worker node communicates with the master node. The kubelet runs on each Node.
+*kube-proxy - a “node agent” using which the worker node communicates with the external world. The kube-proxy also runs on each Node.
+*kube-apiserver - the frontend API that exposes the Kubernetes control plane.
+*etcd - a key-value store to stores the cluster state
+*kube-scheduler - a component that schedules the pods for running on the most suitable Node.
+*kube-controller-manager - a component that bundles and runs controller processes. These processes concern the nodes, replication,  
+ endpoints, and access management.
+
+### Kubeone installation [https://github.com/kubermatic/kubeone]
+1. It is recommended to use KubeOne for Linux users. kubeone is a CLI tool and a Go library for installing, managing, and upgrading 
+   Kubernetes High-Available (HA) clusters. It can be used on any cloud provider, on-prem or bare-metal cluster.
+### Downloading a binary from GitHub Releases
+   curl -LO https://github.com/kubermatic/kubeone/releases/download/v<version>/kubeone_<version>_<operating_system>_amd64.zip
+   Find the releases from : [https://github.com/kubermatic/kubeone/releases]
+   Example: curl -LO https://github.com/kubermatic/kubeone/releases/download/v0.11.1/kubeone_0.11.1_linux_amd64.zip
+2. Extract the binary to the KubeOne directory. On Linux and macOS, you can use unzip.
+   unzip kubeone_<version>_<operating_system>_amd64.zip -d kubeone_<version>_<operating_system>_amd64
+   Example : unzip kubeone_0.11.1_linux_amd64.zip -d kubeone_0.11.1_linux_amd64
+3. Move the kubeone binary to your path, so you can easily invoke it from your terminal.
+   sudo mv kubeone_<version>_<operating_system>_amd64/kubeone /usr/local/bin
+   Example : sudo mv kubeone_0.11.1_linux_amd64/kubeone /usr/local/bin
+4. Kubeone installation done
+### Terraform Instalaltion
+5. Home Brew : [/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"]
+   brew install terraform
+   Set brew to PATH
+   brew install gcc
+6. For compilers to find isl@0.18 you may need to set:
+   export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib"
+   export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/isl@0.18/include"
+
+   For pkg-config to find isl@0.18 you may need to set:
+   export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib/pkgconfig"
+7. Install Terraform (terraform Successfully Installed)
+   brew install terraform
+   Go to kubeone_0.11.1_linux_amd64/examples/terraform/aws
+   terraform init
+9. AWS Credentials: 
+   export AWS_ACCESS_KEY_ID=
+   export AWS_SECRET_ACCESS_KEY=
+
+### Install kubectl on Linux [Done]
+1. Download the latest release with the command:
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+2. To download a specific version, replace the
+   curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
+3. For example, to download version v1.18.0 on Linux, type:
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
+4. Make the kubectl binary executable.
+   chmod +x ./kubectl
+5. Move the binary in to your PATH.
+   sudo mv ./kubectl /usr/local/bin/kubectl
+6. Test to ensure the version you installed is up-to-date:
+   kubectl version --client
+   
+
+   https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md
+   
 # Udagram Image Filtering Microservice
 
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
