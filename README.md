@@ -99,7 +99,7 @@ Current repo [Clone the project repo]
    AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed4 
    amitgoswami1027/udacity-restapi-feed
 
-### Important Commands
+### Important Commands used during the setup on AWS EC2. 
 1. Set Pythons path : /usr/bin/python3
 2. npm install node-pre-gyp -g
 3. npm config set python /usr/bin/python3
@@ -137,7 +137,7 @@ Current repo [Clone the project repo]
 14. Pushing the images to dockerhub
     docker push yourdockerhubname/udacity-restapi-feed 
 
-### Dockerfile
+### Dockerfile (Basics) 
 a text file without any extension that contains all the commands to be executed to generate an image.
 #### FROM (a Dockerfile must begin with a FROM instruction . initializes a new build stage sets the base image for subsequent instructions)
 #### RUN (command to create and start containers using the current image commits the results so that the resulting committed image will be used for the next step in the Dockerfile.)
@@ -147,9 +147,9 @@ a text file without any extension that contains all the commands to be executed 
 #### CMD (provide defaults for an executing container if the defaults do not include an executable, you must specify an ENTRYPOINT
 NOTE: there can be only one CMD instruction in a Dockerfile)
 
-# KUBERNETES( K8s)
+# KUBERNETES( K8s) - Installation on AWS EC2 Instance
 Kubernetes (K8s) is an Apache 2.0-licensed open source Container Orchestration tool for effectively managing containerized applications.
-Kubernetes can automate the deployments, maintaining a logical group of containers, and helps to scale the application services. Google started it, but many other companies like Docker, Red Hat, and VMware contributed to it. In 2016, Google transferred the IP rights to Cloud Native Computing Foundation. 
+Kubernetes can automate the deployments, maintaining a logical group of containers, and helps to scale the application services. Google started it, but many other companies like Docker, Red Hat, and VMware contributed to it. In 2016, Google transferred the IP rights to Cloud Native Computing Foundation(CNCF. 
 
 ## Why do we need Kubernetes?
 ![](images/kube01.png)
@@ -183,31 +183,32 @@ In the above diagram, the following elements are involved:
 * kube-controller-manager - a component that bundles and runs controller processes. These processes concern the nodes, replication,  
  endpoints, and access management.
 
-### Kubeone installation [https://github.com/kubermatic/kubeone]
+### Kubeone installation [https://github.com/kubermatic/kubeone] - [Done]
 1. It is recommended to use KubeOne for Linux users. kubeone is a CLI tool and a Go library for installing, managing, and upgrading 
    Kubernetes High-Available (HA) clusters. It can be used on any cloud provider, on-prem or bare-metal cluster.
-### Downloading a binary from GitHub Releases
-   curl -LO https://github.com/kubermatic/kubeone/releases/download/v<version>/kubeone_<version>_<operating_system>_amd64.zip
-   Find the releases from : [https://github.com/kubermatic/kubeone/releases]
-   Example: curl -LO https://github.com/kubermatic/kubeone/releases/download/v0.11.1/kubeone_0.11.1_linux_amd64.zip
+
+### Task-01: Downloading a binary from GitHub Releases
+   a. "curl -LO https://github.com/kubermatic/kubeone/releases/download/v<version>/kubeone_<version>_<operating_system>_amd64.zip"
+   b. Find the releases from : [https://github.com/kubermatic/kubeone/releases]
+   c. Example: "curl -LO https://github.com/kubermatic/kubeone/releases/download/v0.11.1/kubeone_0.11.1_linux_amd64.zip"
 2. Extract the binary to the KubeOne directory. On Linux and macOS, you can use unzip.
-   unzip kubeone_<version>_<operating_system>_amd64.zip -d kubeone_<version>_<operating_system>_amd64
-   Example : unzip kubeone_0.11.1_linux_amd64.zip -d kubeone_0.11.1_linux_amd64
+   a. "unzip kubeone_<version>_<operating_system>_amd64.zip -d kubeone_<version>_<operating_system>_amd64"
+   b.  Example : "unzip kubeone_0.11.1_linux_amd64.zip -d kubeone_0.11.1_linux_amd64"
 3. Move the kubeone binary to your path, so you can easily invoke it from your terminal.
-   sudo mv kubeone_<version>_<operating_system>_amd64/kubeone /usr/local/bin
-   Example : sudo mv kubeone_0.11.1_linux_amd64/kubeone /usr/local/bin
+   a. "sudo mv kubeone_<version>_<operating_system>_amd64/kubeone /usr/local/bin"
+   b.  Example : "sudo mv kubeone_0.11.1_linux_amd64/kubeone /usr/local/bin"
 4. Kubeone installation done
 
-### Terraform Instalaltion
+### Task-02: Terraform Instalaltion - [Done]
 5. Home Brew : [/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"]
    brew install terraform
    Set brew to PATH
    brew install gcc
 6. For compilers to find isl@0.18 you may need to set:
-   export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib"
-   export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/isl@0.18/include"
+   * export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib"
+   * export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/isl@0.18/include"
    For pkg-config to find isl@0.18 you may need to set:
-   export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib/pkgconfig"
+   * export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/isl@0.18/lib/pkgconfig"
 7. Install Terraform (terraform Successfully Installed)
    brew install terraform
    Go to kubeone_0.11.1_linux_amd64/examples/terraform/aws
@@ -216,7 +217,7 @@ In the above diagram, the following elements are involved:
    export AWS_ACCESS_KEY_ID=
    export AWS_SECRET_ACCESS_KEY=
 
-### Install kubectl on Linux [Done]
+### Task-03: Install kubectl on Linux [Done]
 1. Download the latest release with the command:
    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 2. To download a specific version, replace the
@@ -229,10 +230,94 @@ In the above diagram, the following elements are involved:
    sudo mv ./kubectl /usr/local/bin/kubectl
 6. Test to ensure the version you installed is up-to-date:
    kubectl version --client
-   
-
    https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md
-   
+
+### Task-04: One we install KubeOne and Kubectl on the AWS EC2 instance,do the following steps: 
+1. Setup Credentials - Create IAM account and store the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables in your AWS 
+   EC2 instance
+2. Create Infrastructure - Associate the required compute resources to create the Kubernetes cluster.
+3. Install Kubernetes Upon successful installation, run kubectl get nodes command. 
+
+### What is POD?
+A pod is a "logical-grouping" of tightly coupled containers (one or more) that have shared storage, a network, and a standard specification. The worker node(s) hosts one or more pods at a time. The image below shows a pod having two containers running in a host.
+
+![](images/pod.png)
+
+The set of containers within a pod have the following essential characteristics:
+1. Share the same namespace (IP address and ports), storage, and network.
+2. Can communicate within the set using localhost
+3. Will always be scheduled together to run on a host node as a single entity * (co-scheduled) & (co-located). If a container is shut 
+   down/added/removed, then the pod has to "restart". Here, the "pod restart" means to restart the environment the containers run in.
+4. Run a single instance of the containerized application. 
+
+* [Controller] : A Controller helps to manage multiple pods each running an individual instance of the application.
+Assume there are multiple pods, each running an individual instance of the application. Such a set of identical pods is called ReplicaSet. The ReplicaSet (of pods) ensures the high-availability of the services hosted inside them. ReplicaSets are created and managed by Controller.
+
+The Controller specifies the necessary attributes and state of Pods and ReplicaSets in a .yaml configuration file, which is called Deployment. This configuration file provides declarative updates to manage Pods and ReplicaSets. The Controller can manage the situations, such as when the host (worker-node) fails, or the pod scheduling is interrupted, using the "Deployment" configuration file. In such cases, the Controller automatically replaces the pod by scheduling an identical replacement on a different node.
+
+* [Pod Templates]: The Controller uses another .yaml configuration file called "Pod Template". It contains the pod specifications such as name, count of replicas, containers to run, port, and many other details.
+
+### K8s Deployments
+Controller specifies the necessary attributes and state of Pods and ReplicaSets in a .yaml configuration file, which is called Deployment. This configuration file provides declarative updates to create and manage Pods / ReplicaSets. We define a Deployment to:
+1. Create new Pods or ReplicaSets
+2. delete the existing Deployments, thereby releasing the compute resources occupied by them
+
+A Deployment contains the details about the containers that would comprise the Pods / ReplicaSets. The figure below shows a sample deployment file in which “kind”, “replicas”, “image”, and “labels” fields are highlighted.
+
+### K8s Deployment template
+![](images/deployment.png)
+
+### K8s Deployment Flow
+![](images/flow.png)
+
+![](images/newversions.png)
+
+### K8s Rolling Update
+![](images/rollyupdate.png)
+
+### K8s Deployment must read
+[https://kubernetes.io/docs/concepts/workloads/controllers/deployment/]
+
+### Deployment Configuration Files
+* kubectl apply -f backend-feed-deployment.yaml 
+* kubectl apply -f backend-user-deployment.yaml 
+* kubectl apply -f frontend-deployment.yaml 
+* kubectl apply -f reverseproxy-deployment.yaml
+* kubectl apply -f pod-example/pod.yaml
+* kubectl get pod -o wide
+
+* Labels : Labels are "tags" in the form of key/value pairs that are associated with Kubernetes objects (Deployments/Pods). Multiple 
+  objects may belong to a single Label. Labeling helps to identify all the objects (and resources) associated with a particular Label   
+  value (say "Production" or "Testing"). Applying a Label does not have any impact on the behavior of the underlying object. They are 
+  helpful in better organizing the objects (and resources).
+
+![](images/labels.png)
+
+### AWS EKS (Elastic Kubernetes Service) - Must Read.
+* EKS [https://aws.amazon.com/eks/]
+* AWS Service mesh [https://aws.amazon.com/app-mesh/]
+
+## K8s Service Registeration, Discovery and Autoscaling
+Kubernetes has an integrated pattern for decoupling configuration from application or container. This pattern makes use of two Kubernetes components: ConfigMaps and Secrets.
+### ConfigMap
+Externalized data stored within kubernetes.
+* Can be referenced through several different means:
+* environment variable
+* a command line argument (via env var) injected as a file into a volume mount. Can be created from a manifest, literals, directories, or files directly.
+
+### Secret
+* Functionally identical to a ConfigMap.
+* Stored as base64 encoded content.
+* Encrypted at rest within etcd (if configured!).
+* Ideal for username/passwords, certificates or other sensitive information that should not be stored in a container.Can be created from 
+  a manifest, literals, directories, or from files directly.
+
+Secrets and ConfigMaps both follow key-value pair styles to store information. Both the files have .yaml extension. The main difference is that the Secrets store the values in the base64 encoded format. Secret allows us to store confidential information, such as passwords, OAuth tokens, and SSH keys. A pod can use a Secret in either of the following two ways:
+* As files in a volume mounted on its containers
+* Kubelet uses secrets while pulling images for the pod
+* So, let us learn to encode and decode given String(s) into base64 encoding format.
+
+
 # Udagram Image Filtering Microservice
 
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
