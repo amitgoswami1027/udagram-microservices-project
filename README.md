@@ -188,15 +188,15 @@ In the above diagram, the following elements are involved:
    Kubernetes High-Available (HA) clusters. It can be used on any cloud provider, on-prem or bare-metal cluster.
 
 ### Task-01: Downloading a binary from GitHub Releases
-   a. "curl -LO https://github.com/kubermatic/kubeone/releases/download/v<version>/kubeone_<version>_<operating_system>_amd64.zip"
-   b. Find the releases from : [https://github.com/kubermatic/kubeone/releases]
-   c. Example: "curl -LO https://github.com/kubermatic/kubeone/releases/download/v0.11.1/kubeone_0.11.1_linux_amd64.zip"
+    *  curl -LO https://github.com/kubermatic/kubeone/releases/download/v<version>/kubeone_<version>_<operating_system>_amd64.zip
+    *  Find the releases from : [https://github.com/kubermatic/kubeone/releases]
+    *  Example: "curl -LO https://github.com/kubermatic/kubeone/releases/download/v0.11.1/kubeone_0.11.1_linux_amd64.zip"
 2. Extract the binary to the KubeOne directory. On Linux and macOS, you can use unzip.
-   a. "unzip kubeone_<version>_<operating_system>_amd64.zip -d kubeone_<version>_<operating_system>_amd64"
-   b.  Example : "unzip kubeone_0.11.1_linux_amd64.zip -d kubeone_0.11.1_linux_amd64"
+    * "unzip kubeone_<version>_<operating_system>_amd64.zip -d kubeone_<version>_<operating_system>_amd64"
+    *  Example : "unzip kubeone_0.11.1_linux_amd64.zip -d kubeone_0.11.1_linux_amd64"
 3. Move the kubeone binary to your path, so you can easily invoke it from your terminal.
-   a. "sudo mv kubeone_<version>_<operating_system>_amd64/kubeone /usr/local/bin"
-   b.  Example : "sudo mv kubeone_0.11.1_linux_amd64/kubeone /usr/local/bin"
+    * "sudo mv kubeone_<version>_<operating_system>_amd64/kubeone /usr/local/bin"
+    *  Example : "sudo mv kubeone_0.11.1_linux_amd64/kubeone /usr/local/bin"
 4. Kubeone installation done
 
 ### Task-02: Terraform Instalaltion - [Done]
@@ -291,7 +291,7 @@ A Deployment contains the details about the containers that would comprise the P
   value (say "Production" or "Testing"). Applying a Label does not have any impact on the behavior of the underlying object. They are 
   helpful in better organizing the objects (and resources).
 
-![](images/labels.png)
+![](images/label.png)
 
 ### AWS EKS (Elastic Kubernetes Service) - Must Read.
 * EKS [https://aws.amazon.com/eks/]
@@ -316,6 +316,32 @@ Secrets and ConfigMaps both follow key-value pair styles to store information. B
 * As files in a volume mounted on its containers
 * Kubelet uses secrets while pulling images for the pod
 * So, let us learn to encode and decode given String(s) into base64 encoding format.
+
+### Kubernetes Services Types
+There are 4 major service types:
+1. ClusterIP (default)
+2. NodePort
+3. LoadBalancer
+4. ExternalName
+
+### Scaling a Deployment
+kubectl scale deployment/user --replicas=10
+
+# CI/CD (Continuous Integration & Continuous Delivery)
+CI/CD is one of the best practices followed in the DevOps model. 
+
+# What is DevOps?
+DevOps is the combination of industry best practices, and set of tools that improves an organization’s ability to:
+* Increase the speed of software delivery.
+* Increases the speed of software evolution.
+* Have better reliability of the software.
+* Have scalability using automation.
+* Improved collaboration among teams.
+
+### Continuous Integration means newly developed code changes of a project are regularly built, tested, and merged to a shared repository like git.
+### Continuous Delivery is the process of automating the release of the merged and validated code to a repository and finally release a production-ready build to the production environment.
+
+### CI System Example
 
 
 # Udagram Image Filtering Microservice
