@@ -98,7 +98,14 @@ Current repo [Clone the project repo]
    POSTGRESS_USERNAME=$POSTGRESS_USERNAME --env POSTGRESS_PASSWORD=$POSTGRESS_PASSWORD --env POSTGRESS_DB=$POSTGRESS_DB --env    
    AWS_REGION=$AWS_REGION --env AWS_PROFILE=$AWS_PROFILE --env AWS_BUCKET=$AWS_BUCKET --env JWT_SECRET=$JWT_SECRET --name feed4 
    amitgoswami1027/udacity-restapi-feed
-
+9. Docker Compose Installation
+   * sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+   * After you do the curl command , it'll put docker-compose into the : /usr/local/bin
+   * sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+   * which docker-compose
+   * sudo /home/your-user/your-path-to-compose/docker-compose up
+   
+sudo chmod +x /usr/local/bin/docker-compose
 ### Important Commands used during the setup on AWS EC2. 
 1. Set Pythons path : /usr/bin/python3
 2. npm install node-pre-gyp -g
