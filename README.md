@@ -334,6 +334,28 @@ There are 4 major service types:
 ### Scaling a Deployment
 kubectl scale deployment/user --replicas=10
 
+## Setting Up a Kubernetes Cluster on AWS in 5 Minutes
+https://ramhiser.com/post/2018-05-20-setting-up-a-kubernetes-cluster-on-aws-in-5-minutes/
+
+sudo aws s3api create-bucket --bucket udagram-kops-goswami --region us-east-1
+sudo aws s3api put-bucket-versioning --bucket udagram-kops-goswami --versioning-configuration Status=Enabled
+
+export KOPS_CLUSTER_NAME=udagram-kops-goswami.k8s.local
+export KOPS_STATE_STORE=s3://udagram-kops-goswami
+
+sudo kops create cluster --node-count=2 --node-size=t2.medium --zones=us-east-1a
+
+kops create secret --name udagram-kops-goswami.k8s.local sshpublickey admin -i ~/.ssh/authorized_keys
+
+kops create cluster --node-count=2 --node-size=t2.medium --zones=us-east-1a --name chubby-bunnies
+
+Suggestions:
+ * validate cluster: kops validate cluster
+ * list nodes: kubectl get nodes --show-labels
+ * ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.udagram-kops-goswami.k8s.local
+ * the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
+ * read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/operations/addons.md.
+
 # CI/CD (Continuous Integration & Continuous Delivery)
 CI/CD is one of the best practices followed in the DevOps model. 
 
