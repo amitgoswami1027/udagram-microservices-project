@@ -75,7 +75,7 @@ Current repo [Clone the project repo]
    * "docker run alpine echo hello world"
 10. Congratulations! You are now running Docker!
 
-### Task-10 Converting the monolithic application to microservices: (Dockerizing the services)
+### Task-10 Converting the monolithic application to microservices: (Dockerizing the services) - Done
 1. Create a project folder in your local computer and clone the following Git repository -
    https://github.com/udacity/nd9990-c3-microservices-v1
 2. Create your Dockerfile
@@ -194,7 +194,7 @@ In the above diagram, the following elements are involved:
 1. It is recommended to use KubeOne for Linux users. kubeone is a CLI tool and a Go library for installing, managing, and upgrading 
    Kubernetes High-Available (HA) clusters. It can be used on any cloud provider, on-prem or bare-metal cluster.
 
-### Task-01: Downloading a binary from GitHub Releases
+### Task-01: Downloading a binary from GitHub Releases - [Done]
     *  curl -LO https://github.com/kubermatic/kubeone/releases/download/v<version>/kubeone_<version>_<operating_system>_amd64.zip
     *  Find the releases from : [https://github.com/kubermatic/kubeone/releases]
     *  Example: "curl -LO https://github.com/kubermatic/kubeone/releases/download/v0.11.1/kubeone_0.11.1_linux_amd64.zip"
@@ -224,7 +224,7 @@ In the above diagram, the following elements are involved:
    export AWS_ACCESS_KEY_ID=
    export AWS_SECRET_ACCESS_KEY=
 
-### Task-03: Install kubectl on Linux [Done]
+### Task-03: Install kubectl on Linux - [Done]
 1. Download the latest release with the command:
    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 2. To download a specific version, replace the
@@ -244,6 +244,51 @@ In the above diagram, the following elements are involved:
    EC2 instance
 2. Create Infrastructure - Associate the required compute resources to create the Kubernetes cluster.
 3. Install Kubernetes Upon successful installation, run kubectl get nodes command. 
+
+## Task-05 Setting Up a Kubernetes Cluster on AWS in 5 Minutes
+### (I was facing some challanges while installing kubectl" using kubeone. Instead I am using KOPS to install kubeclt on AWS EC2 instance). Here goes the steps to do the same.....
+
+Kubernetes is like magic. It is a system for working with containerized applications: deployment, scaling, management, service discovery, magic. Think Docker at scale with little hassle. 
+
+### Step-01 : Before setting up the Kubernetes cluster, you’ll need an AWS account and an installation of the AWS Command Line Interface. "aws configure"
+### Step-02 : Installing kops + kubectl
+ * brew update && brew install kops kubectl
+### Step-03 : Setting Up the Kubernetes Cluster
+ *  The first thing we need to do is create an S3 bucket for kops to use to store the state of the Kubernetes cluster and its 
+    configuration. We’ll use the bucket name udagram-kops-goswami-store
+    * sudo aws s3api create-bucket --bucket udagram-kops-goswami-store --region us-east-1
+ *  After creating the udagram-kops-goswami-store, let’s enable versioning to revert or recover a previous state store.
+    * sudo aws s3api put-bucket-versioning --bucket udagram-kops-goswami-store --versioning-configuration Status=Enabled
+ *  Before creating the cluster, let’s set two environment variables: KOPS_CLUSTER_NAME and KOPS_STATE_STORE. For safe keeping you 
+    should add the following to your ~/.bash_profile
+    * export KOPS_CLUSTER_NAME=udagram-kops-goswami-store.k8s.local
+    * export KOPS_STATE_STORE=s3://udagram-kops-goswami-store
+ *  You don’t HAVE TO set the environment variables, but they are useful and referenced by kops commands. For example, see kops create 
+    cluster --help. If the the Kubernetes cluster name ends with k8s.local, Kubernetes will create a gossip-based cluster.
+ *  Now, to generate the cluster configuration:
+    * kops create cluster --node-count=2 --node-size=t2.medium --zones=us-east-1a
+ *  kops create secret --name udagram-kops-goswami-store.k8s.local sshpublickey admin -i ~/.ssh/authorized_keys
+ *  kops create cluster --node-count=2 --node-size=t2.medium --zones=us-east-1a --name udagram-cluster
+ *  Time to build the cluster. This takes a few minutes to boot the EC2 instances and download the Kubernetes components.
+    * kops update cluster --name ${KOPS_CLUSTER_NAME} --yes
+ *  After waiting a bit, let’s validate the cluster to ensure the master + 2 nodes have launched.
+    * kops validate cluster
+ *  Finally, you can see your Kubernetes nodes with kubectl:
+    * kubectl get nodes
+ *  kubectl cluster-info
+ *  With this hostname, open your browser to https://api-udagram-kops-goswami-store-k8s-local-71cb48-202595039.us-east-1.elb.amazonaws.com/ui. (You’ll need to replace the hostname with yours).
+ *  Alternatively, you can access the Dashboard UI via a proxy:
+    * kubectl proxy
+ *  Delete the Kubernetes Cluster
+    kops delete cluster --name ${KOPS_CLUSTER_NAME} --yes
+ #### [https://ramhiser.com/post/2018-05-20-setting-up-a-kubernetes-cluster-on-aws-in-5-minutes/]
+
+Suggestions:
+ * validate cluster: kops validate cluster
+ * list nodes: kubectl get nodes --show-labels
+ * ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.udagram-kops-goswami.k8s.local
+ * the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
+ * read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/operations/addons.md.
 
 ### What is POD?
 A pod is a "logical-grouping" of tightly coupled containers (one or more) that have shared storage, a network, and a standard specification. The worker node(s) hosts one or more pods at a time. The image below shows a pod having two containers running in a host.
@@ -334,27 +379,6 @@ There are 4 major service types:
 ### Scaling a Deployment
 kubectl scale deployment/user --replicas=10
 
-## Setting Up a Kubernetes Cluster on AWS in 5 Minutes
-https://ramhiser.com/post/2018-05-20-setting-up-a-kubernetes-cluster-on-aws-in-5-minutes/
-
-sudo aws s3api create-bucket --bucket udagram-kops-goswami --region us-east-1
-sudo aws s3api put-bucket-versioning --bucket udagram-kops-goswami --versioning-configuration Status=Enabled
-
-export KOPS_CLUSTER_NAME=udagram-kops-goswami.k8s.local
-export KOPS_STATE_STORE=s3://udagram-kops-goswami
-
-sudo kops create cluster --node-count=2 --node-size=t2.medium --zones=us-east-1a
-
-kops create secret --name udagram-kops-goswami.k8s.local sshpublickey admin -i ~/.ssh/authorized_keys
-
-kops create cluster --node-count=2 --node-size=t2.medium --zones=us-east-1a --name chubby-bunnies
-
-Suggestions:
- * validate cluster: kops validate cluster
- * list nodes: kubectl get nodes --show-labels
- * ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.udagram-kops-goswami.k8s.local
- * the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
- * read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/operations/addons.md.
 
 # CI/CD (Continuous Integration & Continuous Delivery)
 CI/CD is one of the best practices followed in the DevOps model. 
