@@ -289,6 +289,7 @@ Suggestions:
  * ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.udagram-kops-goswami.k8s.local
  * the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
  * read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/operations/addons.md.
+https://github.com/makinwab/microservice-project-udacity
 
 ### What is POD?
 A pod is a "logical-grouping" of tightly coupled containers (one or more) that have shared storage, a network, and a standard specification. The worker node(s) hosts one or more pods at a time. The image below shows a pod having two containers running in a host.
