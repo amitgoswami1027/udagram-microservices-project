@@ -289,6 +289,14 @@ Suggestions:
  * ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.udagram-kops-goswami.k8s.local
  * the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
  * read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/operations/addons.md.
+https://github.com/makinwab/microservice-project-udacity
+
+## Task-06 Kubernetes dashboard.
+Kubernetes Dashboard is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage applications running in the cluster and troubleshoot them, as well as manage the cluster itself.
+* To deploy Dashboard, execute following command:
+  * kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-rc7/aio/deploy/recommended.yaml
+* kubectl proxy
+  * 
 
 ### What is POD?
 A pod is a "logical-grouping" of tightly coupled containers (one or more) that have shared storage, a network, and a standard specification. The worker node(s) hosts one or more pods at a time. The image below shows a pod having two containers running in a host.
