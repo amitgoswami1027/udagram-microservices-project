@@ -34,7 +34,7 @@ const c = config.dev;
   
 
   // Start the Server
-  app.listen( port, () => {
+  app.listen( port,'0.0.0.0', () => {
       console.log( `server running ` + c.url );
       console.log( `press CTRL+C to stop server` );
   } );
