@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm ci
 # Bundle app source
 COPY . .
-RUN ionic build
+RUN ionic build --external
 
 ## Run 
 FROM nginx:alpine

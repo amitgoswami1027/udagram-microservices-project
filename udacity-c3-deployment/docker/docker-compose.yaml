@@ -19,7 +19,7 @@ services:
       AWS_PROFILE: ${AWS_PROFILE} 
       AWS_BUCKET: ${AWS_BUCKET}
       JWT_SECRET: ${JWT_SECRET}
-      URL: "http://0.0.0.0:9090"
+      URL: "http://localhost:8080"
   backend-feed:
     image: amitgoswami1027/udagram-restapi-feed
     volumes:
@@ -33,7 +33,7 @@ services:
       AWS_PROFILE: ${AWS_PROFILE} 
       AWS_BUCKET: ${AWS_BUCKET}
       JWT_SECRET: ${JWT_SECRET}
-      URL: "http://0.0.0.0:9090"
+      URL: "http://localhost:8080"
   frontend:
     image: amitgoswami1027/udagram-ionic-frontend
     ports:
