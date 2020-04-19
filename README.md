@@ -114,6 +114,8 @@ sudo chmod +x /usr/local/bin/docker-compose
 5. sudo yum install /usr/bin/g++
 npm install sequelize
 npm install sequelize-typescript
+npm i sequelize@latest --save 
+npm i sequelize-typescript@latest --save
 6. npm ci
 7. Setting Environment variables for the microservices in ~/.bash_profile file
    export POSTGRESS_USERNAME=myusername;
