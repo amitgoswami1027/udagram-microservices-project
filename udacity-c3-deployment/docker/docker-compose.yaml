@@ -1,7 +1,7 @@
 version: "3"
 services:
   reverseproxy:
-      image: amitgoswami1027/udagram-reverseproxy
+      image: amitgoswami1027/udagram-goswami-reverseproxy
       ports:
           - 8080:8080
       restart: always
@@ -9,7 +9,7 @@ services:
         - backend-user
         - backend-feed     
   backend-user:
-    image: amitgoswami1027/udagram-restapi-user
+    image: amitgoswami1027/udagram-goswami-userapi
     environment:
       POSTGRESS_USERNAME: ${POSTGRESS_USERNAME}
       POSTGRESS_PASSWORD: ${POSTGRESS_PASSWORD} 
@@ -19,11 +19,11 @@ services:
       AWS_PROFILE: ${AWS_PROFILE} 
       AWS_BUCKET: ${AWS_BUCKET}
       JWT_SECRET: ${JWT_SECRET}
-      URL: "http://localhost:8080"
+      URL: "http://0.0.0.0:8080"
   backend-feed:
-    image: amitgoswami1027/udagram-restapi-feed
+    image: amitgoswami1027/udagram-goswami-feedapi
     volumes:
-      - $HOME/.aws:/root/.aws
+      - $HOME/.aws
     environment:
       POSTGRESS_USERNAME: ${POSTGRESS_USERNAME}
       POSTGRESS_PASSWORD: ${POSTGRESS_PASSWORD} 
@@ -33,8 +33,8 @@ services:
       AWS_PROFILE: ${AWS_PROFILE} 
       AWS_BUCKET: ${AWS_BUCKET}
       JWT_SECRET: ${JWT_SECRET}
-      URL: "http://localhost:8080"
+      URL: "http://0.0.0.0:8080"
   frontend:
-    image: amitgoswami1027/udagram-ionic-frontend
+    image: amitgoswami1027/udagram-goswami-ionicfrontend
     ports:
       - "8100:8100"
