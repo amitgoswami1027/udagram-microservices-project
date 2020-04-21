@@ -5,7 +5,7 @@ metadata:
     service: backend-user
   name: backend-user
 spec:
-  replicas: 1
+  replicas: 2
   selector:
    matchLabels:
     service: backend-user
@@ -15,7 +15,7 @@ spec:
         service: backend-user
     spec:
       containers:
-      - image: amitgoswami1027/udagram-ms-userapi
+      - image: amitgoswami1027/udagram-goswami-userapi
         name: backend-user 
         imagePullPolicy: Always  
         resources:

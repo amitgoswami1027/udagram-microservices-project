@@ -16,7 +16,7 @@ spec:
         api: external        
     spec:
       containers:
-      - image: amitgoswami1027/udagram-ms-ionicfrontend
+      - image: amitgoswami1027/udagram-goswami-ionicfrontend
         name: frontend
         imagePullPolicy: Always          
         ports:
