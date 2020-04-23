@@ -255,6 +255,8 @@ In the above diagram, the following elements are involved:
 Kubernetes is like magic. It is a system for working with containerized applications: deployment, scaling, management, service discovery, magic. Think Docker at scale with little hassle. 
 
 ### Step-01 : Before setting up the Kubernetes cluster, you’ll need an AWS account and an installation of the AWS Command Line Interface. "aws configure"
+Install Home Brew : /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+ echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> /home/ec2-user/.bash_profile
 ### Step-02 : Installing kops + kubectl
  * brew update && brew install kops kubectl
 ### Step-03 : Setting Up the Kubernetes Cluster
