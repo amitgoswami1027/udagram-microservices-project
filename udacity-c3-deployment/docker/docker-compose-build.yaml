@@ -15,4 +15,4 @@ services:
   frontend:
     build:
       context: ../../udacity-c3-frontend  
-    image: amitgoswami1027/udagram-goswami-ionicfrontendv2
+    image: amitgoswami1027/udagram-goswami-ionicfrontendv3

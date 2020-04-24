@@ -7,7 +7,7 @@ data:
   JWT_SECRET : helloworld
   POSTGRESS_DB : postgres
   POSTGRESS_HOST : udagrampostgres.cvqgygxhhehg.us-east-1.rds.amazonaws.com
-  URL: http://0.0.0.0:8100  
+  URL: "http://0.0.0.0:8100"
 metadata:
   name: env-config
   

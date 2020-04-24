@@ -21,6 +21,6 @@ services:
     env_file:
            - .env
   frontend:
-    image: amitgoswami1027/udagram-goswami-ionicfrontendv2
+    image: amitgoswami1027/udagram-goswami-ionicfrontendv3
     ports:
             - "8100:80"
